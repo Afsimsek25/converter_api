@@ -296,5 +296,243 @@
                 ]
             }
         ]
+    },
+    {
+        "step": "1",
+        "event": "Hover",
+        "element": {
+            "classifier": "Text",
+            "order": null,
+            "text": "Elektronik"
+        }
+    },
+    {
+        "step": "2",
+        "event": "Click",
+        "element": [
+            {
+                "classifier": "Text",
+                "order": null,
+                "text": "Bilgisayar"
+            },
+            {
+                "classifier": "Text",
+                "order": null,
+                "text": [
+                    "Furkan"
+                ]
+            },
+            {
+                "classifier": "Button",
+                "order": "2",
+                "text": null
+            },
+            {
+                "classifier": "ShoppingCart",
+                "order": "5",
+                "text": null
+            }
+        ]
+    },
+    {
+        "step": "3",
+        "event": "Click",
+        "element": {
+            "classifier": "Text",
+            "order": "1",
+            "text": "Dizüstü Bilgisayar"
+        }
+    },
+    {
+        "step": "4",
+        "event": "Click",
+        "element": {
+            "classifier": "Text",
+            "order": null,
+            "text": "Sırala"
+        }
+    },
+    {
+        "step": "5",
+        "event": "Click",
+        "element": {
+            "classifier": "Text",
+            "order": null,
+            "text": "Azalan fiyat"
+        }
+    },
+    {
+        "step": "6",
+        "event": "Click",
+        "element": [
+            {
+                "classifier": "ProductBox",
+                "order": "2",
+                "text": ""
+            },
+            {
+                "classifier": "Text",
+                "order": null,
+                "text": [
+                    "Furkan"
+                ]
+            },
+            {
+                "classifier": "Button",
+                "order": "2",
+                "text": null
+            },
+            {
+                "classifier": "ShoppingCart",
+                "order": "5",
+                "text": null
+            }
+        ]
+    },
+    {
+        "step": "7",
+        "event": "Click",
+        "element": {
+            "classifier": "Button",
+            "order": "1",
+            "text": "Sepete Ekle"
+        }
+    },
+    {
+        "step": "8",
+        "event": "Click",
+        "element": {
+            "classifier": "ShoppingCart",
+            "order": null,
+            "text": null
+        }
+    },
+    {
+        "step": "9",
+        "event": "IsVisible",
+        "element": {
+            "classifier": "Text",
+            "order": null,
+            "text": "Dizüstü Bilgisayar"
+        }
+    },
+    {
+        "step": "1",
+        "event": "Hover",
+        "element": {
+            "classifier": "Text",
+            "order": null,
+            "text": "Elektronik"
+        }
+    },
+    {
+        "step": "2",
+        "event": "Click",
+        "element": [
+            {
+                "classifier": "Text",
+                "order": null,
+                "text": "Bilgisayar"
+            },
+            {
+                "classifier": "Text",
+                "order": null,
+                "text": [
+                    "Furkan"
+                ]
+            },
+            {
+                "classifier": "Button",
+                "order": "2",
+                "text": null
+            },
+            {
+                "classifier": "ShoppingCart",
+                "order": "5",
+                "text": null
+            }
+        ]
+    },
+    {
+        "step": "3",
+        "event": "Click",
+        "element": {
+            "classifier": "Text",
+            "order": "1",
+            "text": "Dizüstü Bilgisayar"
+        }
+    },
+    {
+        "step": "4",
+        "event": "Click",
+        "element": {
+            "classifier": "Text",
+            "order": null,
+            "text": "Sırala"
+        }
+    },
+    {
+        "step": "5",
+        "event": "Click",
+        "element": {
+            "classifier": "Text",
+            "order": null,
+            "text": "Azalan fiyat"
+        }
+    },
+    {
+        "step": "6",
+        "event": "Click",
+        "element": [
+            {
+                "classifier": "ProductBox",
+                "order": "2",
+                "text": ""
+            },
+            {
+                "classifier": "Text",
+                "order": null,
+                "text": [
+                    "Furkan"
+                ]
+            },
+            {
+                "classifier": "Button",
+                "order": "2",
+                "text": null
+            },
+            {
+                "classifier": "ShoppingCart",
+                "order": "5",
+                "text": null
+            }
+        ]
+    },
+    {
+        "step": "7",
+        "event": "Click",
+        "element": {
+            "classifier": "Button",
+            "order": "1",
+            "text": "Sepete Ekle"
+        }
+    },
+    {
+        "step": "8",
+        "event": "Click",
+        "element": {
+            "classifier": "ShoppingCart",
+            "order": null,
+            "text": null
+        }
+    },
+    {
+        "step": "9",
+        "event": "IsVisible",
+        "element": {
+            "classifier": "Text",
+            "order": null,
+            "text": "Dizüstü Bilgisayar"
+        }
     }
 ]

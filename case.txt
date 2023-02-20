@@ -1,18 +1,1 @@
-1. MoveMouseTo Text Elektronik
-2. Click Text Bilgisayar
-3. Click InputLabel Akıllı
-4. Click Text Artan Fiyat
-5. Click Text Kategoriler > Text Bilgisayar > Text Dizüstü Bilgisayar
-6. IsVisible Text Intel Core i7
-7. Scroll -300
-8. Click ProductBox[1]
-9. Click Button Sepete Ekle
-10. Delay 1500
-11. Click ShoppingCart[0]
-12. Click Button Tamam
-13. Click Button Hemen Giriş Yap
-14. IsVisible Button Facebook İle Giriş Yap
-15. Scroll -200
-16. Write "uiautocolab@gmail.com" InputLabel E-Posta Adresi
-17. Write "Asimsek25" InputLabel Şifre
-18. Click Text Şifremi Unuttum > Button Giriş Yap
+(data)
