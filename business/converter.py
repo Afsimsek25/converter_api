@@ -29,6 +29,7 @@ def get_text_in_line(items):
         else:
             text += (item + " ")
     return text
+
 def find_indices(list_to_check, item_to_find):
     indices = []
     for idx, value in enumerate(list_to_check):
@@ -74,10 +75,9 @@ def anchored_element_switcher(list):
         have_order = line_have_order(item)
         if len(item_list) > 1:
             classifier_in_anchor = item_list[0]
-            text_in_anchor = item_list[1:]
+            text_in_anchor = listToString(item_list[1:])
             if have_order:
                 ordered_item = get_ordered_item_and_order(item_list)
-                print(ordered_item)
                 order_in_anchor = ordered_item[1]
             element.append({
                 'classifier': classifier_in_anchor,
@@ -91,7 +91,6 @@ def anchored_element_switcher(list):
                 order_in_anchor = ordered_item[2]
             else:
                 classifier_in_anchor = item_list[0]
-
             element.append({
                 'classifier': classifier_in_anchor,
                 'order': order_in_anchor,
@@ -131,6 +130,7 @@ def switch_item(line):
     classifier = None
     order = None
     text = None
+
     have_order = line_have_order(line)
     items = line.split(" ")
     step = re.findall(r'\d+', str(items[0]))[0]
@@ -145,12 +145,14 @@ def switch_item(line):
         classifier == 'InputLabel' or
         classifier == 'ProductBox' or
         classifier == 'Image'):
-        text = get_text_in_line(items[3:len(items)]).rstrip(' ')
-    element = {
+        if items[3:len(items)]:
+            text = get_text_in_line(items[3:len(items)]).rstrip(' ')
+
+    element = [{
         'classifier': classifier,
         'order': order,
         'text': text
-    }
+    }]
     return step, event, element
 def anchored_line_switch(line):
     anchor_index = line.index('>')
@@ -172,7 +174,7 @@ def event_parser(list):
         if str(line).__contains__("Click"):
             content = line_parser(line)
             if content[1] == 'Anc':
-                save_event(step=content[0][0], event=content[0][1], element=content[0][2],
+                save_event(step=content[0][0], event=content[0][1], element=content[0][2][0],
                            anchored_element=content[0][3])
             elif content[1] == 'NotAnc':
                 save_event(step=content[0][0], event=content[0][1], element=content[0][2])
@@ -181,42 +183,42 @@ def event_parser(list):
             line = line.replace(' "' + data + '"', '')
             content = line_parser(line)
             if content[1] == 'Anc':
-                save_event(step=content[0][0], event=content[0][1], element=content[0][2],
+                save_event(step=content[0][0], event=content[0][1], element=content[0][2][0],
                            anchored_element=content[0][3], data=data)
             elif content[1] == 'NotAnc':
                 save_event(step=content[0][0], event=content[0][1], element=content[0][2], data=data)
         elif str(line).__contains__("MoveMouseTo"):
             content = line_parser(line)
             if content[1] == 'Anc':
-                save_event(step=content[0][0], event=content[0][1], element=content[0][2],
+                save_event(step=content[0][0], event=content[0][1], element=content[0][2][0],
                            anchored_element=content[0][3])
             elif content[1] == 'NotAnc':
                 save_event(step=content[0][0], event=content[0][1], element=content[0][2])
         elif str(line).__contains__("Hover"):
             content = line_parser(line)
             if content[1] == 'Anc':
-                save_event(step=content[0][0], event=content[0][1], element=content[0][2],
+                save_event(step=content[0][0], event=content[0][1], element=content[0][2][0],
                            anchored_element=content[0][3])
             elif content[1] == 'NotAnc':
                 save_event(step=content[0][0], event=content[0][1], element=content[0][2])
-        elif str(line).__contains__("HoverAndClick"):
+        elif str(line).__contains__("Hover_And_Click"):
             content = line_parser(line)
             if content[1] == 'Anc':
-                save_event(step=content[0][0], event=content[0][1], element=content[0][2],
+                save_event(step=content[0][0], event=content[0][1], element=content[0][2][0],
                            anchored_element=content[0][3])
             elif content[1] == 'NotAnc':
                 save_event(step=content[0][0], event=content[0][1], element=content[0][2])
-        elif str(line).__contains__("GetText"):
+        elif str(line).__contains__("Get_Text"):
             content = line_parser(line)
             if content[1] == 'Anc':
-                save_event(step=content[0][0], event=content[0][1], element=content[0][2],
+                save_event(step=content[0][0], event=content[0][1], element=content[0][2][0],
                            anchored_element=content[0][3])
             elif content[1] == 'NotAnc':
                 save_event(step=content[0][0], event=content[0][1], element=content[0][2])
         elif str(line).__contains__("IsVisible"):
             content = line_parser(line)
             if content[1] == 'Anc':
-                save_event(step=content[0][0], event=content[0][1], element=content[0][2],
+                save_event(step=content[0][0], event=content[0][1], element=content[0][2][0],
                            anchored_element=content[0][3])
             elif content[1] == 'NotAnc':
                 save_event(step=content[0][0], event=content[0][1], element=content[0][2])
@@ -226,7 +228,6 @@ def event_parser(list):
         elif str(line).__contains__("Delay"):
             content = line.split(" ")
             save_event(step=content[0], event=content[1], milis=content[2])
-
 def returner(element=None, anchored_element=None):
     event = []
     event.append(element)
@@ -245,7 +246,7 @@ def save_event(step, event, element=None, anchored_element=None, data=None, px=N
                 'step': step,
                 'event': event,
                 'data': data,
-                'element': anchored_part
+                'elements': anchored_part
             }
             events.append(info)
         else:
@@ -253,7 +254,7 @@ def save_event(step, event, element=None, anchored_element=None, data=None, px=N
                 'step': step,
                 'event': event,
                 'data': data,
-                'element': element
+                'elements': element
             }
             events.append(info)
     elif event == 'Scroll':
@@ -277,14 +278,14 @@ def save_event(step, event, element=None, anchored_element=None, data=None, px=N
             info = {
                 'step': step,
                 'event': event,
-                'element': anchored_part
+                'elements': anchored_part
             }
             events.append(info)
         else:
             info = {
                 'step': step,
                 'event': event,
-                'element': element
+                'elements': element
             }
             events.append(info)
     return
