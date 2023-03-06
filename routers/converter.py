@@ -1,4 +1,4 @@
-from fastapi import APIRouter,File, UploadFile,HTTPException,Form
+from fastapi import APIRouter, File, UploadFile, HTTPException, Form
 from business import converter
 from fastapi.responses import FileResponse
 import aiofiles
@@ -8,10 +8,13 @@ from io import BytesIO
 
 ALLOWED_EXTENSIONS = set(['txt', 'xlsx'])
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
 router = APIRouter()
+
 
 @router.post("/convert")
 async def convert(file: UploadFile = File(None), text: str = Form(None)):
@@ -24,7 +27,11 @@ async def convert(file: UploadFile = File(None), text: str = Form(None)):
                   'status': False}
         raise HTTPException(status_code=500, detail=errors)
     elif text:
-        rows.append(text)
+        if text.__contains__("\n"):
+            rows = text.split("\n")
+        else:
+            rows.append(text)
+        print(rows)
         converter.event_parser(rows)
         return converter.events
     elif file:
