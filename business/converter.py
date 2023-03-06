@@ -102,12 +102,9 @@ def line_have_anchor(line):
         if str(element).__contains__('>'):
             have = True
     return have
-def txt_to_list(path):
-    with open(path, encoding="utf-8") as f:
-        return f.readlines()
-def xl_to_list(path):
+def xl_to_list(file):
     list = []
-    xl.connect(path)
+    xl.connect(file)
     xl.navigate_sheet()
     step_no = xl.search_spesific_value('Step No')
     last_row = xl.get_max_row()
@@ -169,7 +166,6 @@ def line_parser(line):
         return line_content, 'NotAnc'
 def event_parser(list):
     for line in list:
-        line = line[0]
         #line = line.strip('\n')
         if str(line).__contains__("Click"):
             content = line_parser(line)
@@ -290,17 +286,3 @@ def save_event(step, event, element=None, anchored_element=None, data=None, px=N
             }
             events.append(info)
     return
-def path_router(path):
-    file_extension = os.path.splitext(path)[1]
-    if str(file_extension) == '.txt':
-        event_list = txt_to_list(path)
-        print(type(event_list))
-        print(event_list)
-    elif str(file_extension) == '.xlsx':
-        event_list = xl_to_list(path)
-    else:
-        raise Exception('We only support .txt and .xlsx formats')
-    event_parser(event_list)
-def run(path):
-    path_router(path)
-    save_json()

@@ -15,9 +15,9 @@ def search_spesific_value(searched_value):
 def get_index(cell):
     return cell.row,cell.column
 """This method will connect to the file in the given path"""
-def connect(path):
+def connect(file):
     global wb
-    wb = load_workbook(path, data_only=True)
+    wb = load_workbook(filename=file, data_only=True)
 """This method will navigate to the sheet in the connected file"""
 def navigate_sheet(sheet=None):
     global ws
