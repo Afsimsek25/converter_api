@@ -15,13 +15,17 @@ router = APIRouter()
 async def convert(file: UploadFile = File(...)):
     if file.filename and allowed_file(file.filename):
         try:
-            path = ('case.'+file.filename.rsplit('.', 1)[1].lower())
+            global rows
+            rows = []
 
-            async with aiofiles.open(path, 'wb') as out_file:
-                content = await file.read()  # async read
-                await out_file.write(content)  # async write
-            converter.run(path)
-            return FileResponse('events.json')
+            contents = await file.read()
+            if file.filename.endswith('.txt'):
+                # Dosya TXT ise
+                rows = contents.decode('utf-8').splitlines()
+                rows = [row.split('\t') for row in rows]
+                converter.events.clear()
+                converter.event_parser(rows)
+            return converter.events
 
         except Exception as e:
             raise HTTPException(status_code=500, detail=e)

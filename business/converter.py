@@ -18,7 +18,6 @@ classifier_in_anchor = None
 text_in_anchor = None
 order_in_anchor = None
 
-
 def get_text_between_quotes(line):
     return re.findall(r'(?<=")(.*?)(?=")', line)
 def get_text_in_line(items):
@@ -170,7 +169,8 @@ def line_parser(line):
         return line_content, 'NotAnc'
 def event_parser(list):
     for line in list:
-        line = line.strip('\n')
+        line = line[0]
+        #line = line.strip('\n')
         if str(line).__contains__("Click"):
             content = line_parser(line)
             if content[1] == 'Anc':
@@ -224,10 +224,10 @@ def event_parser(list):
                 save_event(step=content[0][0], event=content[0][1], element=content[0][2])
         elif str(line).__contains__("Scroll"):
             content = line.split(" ")
-            save_event(step=content[0], event=content[1], px=content[2])
+            save_event(step=content[0].replace(".",""), event=content[1], px=content[2])
         elif str(line).__contains__("Delay"):
             content = line.split(" ")
-            save_event(step=content[0], event=content[1], milis=content[2])
+            save_event(step=content[0].replace(".",""), event=content[1], milis=content[2])
 def returner(element=None, anchored_element=None):
     event = []
     event.append(element)
@@ -237,6 +237,7 @@ def returner(element=None, anchored_element=None):
 def save_json():
     with open('events.json', 'w', encoding='utf8') as event:
         json.dump(events, event, indent=4, ensure_ascii=False)
+        event.close()
     return
 def save_event(step, event, element=None, anchored_element=None, data=None, px=None, milis = None):
     if event == 'Write':
@@ -246,7 +247,7 @@ def save_event(step, event, element=None, anchored_element=None, data=None, px=N
                 'step': step,
                 'event': event,
                 'data': data,
-                'elements': anchored_part
+                'element': anchored_part
             }
             events.append(info)
         else:
@@ -254,7 +255,7 @@ def save_event(step, event, element=None, anchored_element=None, data=None, px=N
                 'step': step,
                 'event': event,
                 'data': data,
-                'elements': element
+                'element': element
             }
             events.append(info)
     elif event == 'Scroll':
@@ -278,14 +279,14 @@ def save_event(step, event, element=None, anchored_element=None, data=None, px=N
             info = {
                 'step': step,
                 'event': event,
-                'elements': anchored_part
+                'element': anchored_part
             }
             events.append(info)
         else:
             info = {
                 'step': step,
                 'event': event,
-                'elements': element
+                'element': element
             }
             events.append(info)
     return
@@ -293,6 +294,8 @@ def path_router(path):
     file_extension = os.path.splitext(path)[1]
     if str(file_extension) == '.txt':
         event_list = txt_to_list(path)
+        print(type(event_list))
+        print(event_list)
     elif str(file_extension) == '.xlsx':
         event_list = xl_to_list(path)
     else:
