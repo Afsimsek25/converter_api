@@ -17,6 +17,7 @@ router = APIRouter()
 async def convert(file: UploadFile = File(None), text: str = Form(None)):
     global rows
     rows = []
+    converter.events.clear()
 
     if text and file:
         errors = {'message': "There can only be one request method. You can just use File or Text",
@@ -29,8 +30,6 @@ async def convert(file: UploadFile = File(None), text: str = Form(None)):
     elif file:
         if file.filename and allowed_file(file.filename):
             try:
-                converter.events.clear()
-
                 contents = await file.read()
                 if file.filename.endswith('.txt'):
                     rows = contents.decode('utf-8').splitlines()
