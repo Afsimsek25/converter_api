@@ -204,7 +204,7 @@ def event_parser(list):
                            anchored_element=content[0][3])
             elif content[1] == 'NotAnc':
                 save_event(step=content[0][0], event=content[0][1], element=content[0][2])
-        elif str(line).__contains__("Get_Text"):
+        elif str(line).__contains__("GetText"):
             content = line_parser(line)
             if content[1] == 'Anc':
                 save_event(step=content[0][0], event=content[0][1], element=content[0][2][0],
